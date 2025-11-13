@@ -15,7 +15,7 @@ function QuanHeCanhTranh() {
       bgLight: "#eff6ff",
       bgBorder: "#bfdbfe",
       prompt:
-        "Hãy cho tôi 2-3 ví dụ cụ thể ngắn gọn về Cạnh tranh Độc quyền vs Ngoài độc quyền (ví dụ: Amazon vs cửa hàng nhỏ, Uber vs taxi truyền thống)",
+        "Hãy cho tôi 2-3 ví dụ cụ thể ngắn gọn nhất có thể và không cần lặp lại câu hỏi về Cạnh tranh Độc quyền vs Ngoài độc quyền (ví dụ: Amazon vs cửa hàng nhỏ, Uber vs taxi truyền thống)",
     },
     {
       icon: "⚔️",
@@ -27,7 +27,7 @@ function QuanHeCanhTranh() {
       bgLight: "#fffbeb",
       bgBorder: "#fcd34d",
       prompt:
-        "Hãy cho tôi 2-3 ví dụ cụ thể ngắn gọn về Cạnh tranh Giữa các Tổ chức độc quyền (ví dụ: Samsung vs Apple, Coca-Cola vs Pepsi)",
+        "Hãy cho tôi 2-3 ví dụ cụ thể ngắn gọn nhất có thể và không cần lặp lại câu hỏi về Cạnh tranh Giữa các Tổ chức độc quyền (ví dụ: Samsung vs Apple, Coca-Cola vs Pepsi)",
     },
     {
       icon: "🔄",
@@ -39,7 +39,7 @@ function QuanHeCanhTranh() {
       bgLight: "#fdf2f8",
       bgBorder: "#fbcfe8",
       prompt:
-        "Hãy cho tôi 2-3 ví dụ cụ thể ngắn gọn về Cạnh tranh Nội bộ Tổ chức độc quyền (ví dụ: OPEC, các cartel)",
+        "Hãy cho tôi 2-3 ví dụ cụ thể ngắn gọn nhất có thể và không cần lặp lại câu hỏi về Cạnh tranh Nội bộ Tổ chức độc quyền (ví dụ: OPEC, các cartel)",
     },
   ];
 
@@ -47,7 +47,7 @@ function QuanHeCanhTranh() {
 
   const handleFetchExample = async (index, prompt) => {
     setLoadingIndex(index);
-    console.log("prompt", prompt);
+    console.log("prompt quan he canh tranh", prompt);
     try {
       const response = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_KEY}`,
@@ -259,6 +259,8 @@ function QuanHeCanhTranh() {
                     color: "#475569",
                     whiteSpace: "pre-wrap",
                     wordBreak: "break-word",
+                    maxHeight: 200,
+                    overflowY: "auto",
                   }}
                 >
                   {exampleResults[index]}

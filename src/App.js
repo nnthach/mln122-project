@@ -8,6 +8,9 @@ import CompareDocQuyen from "./components/CompareDocQuyen/CompareDocQuyen";
 import TacDongDocQuyen from "./components/TacDongDocQuyen/TacDongDocQuyen";
 import QuanHeCanhTranh from "./components/QuanHeCanhTranh/QuanHeCanhTranh";
 import CacHinhThucDocQuyen from "./components/CacHinhThucDocQuyen/CacHinhThucDocQuyen";
+import TuanAnh from "./components/TuanAnh/TuanAnh";
+import ManhToan from "./components/ManhToan/ManhToan";
+import ManhToanTwo from "./components/ManhToan/ManhToanTwo";
 
 function App() {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -37,6 +40,11 @@ function App() {
       <QuanHeCanhTranh />
 
       <CacHinhThucDocQuyen />
+
+      <TuanAnh />
+
+      <ManhToan />
+      <ManhToanTwo />
 
       {/* Chat Toggle Button */}
       {!isChatOpen && (

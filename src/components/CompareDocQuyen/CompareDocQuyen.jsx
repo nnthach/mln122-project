@@ -12,6 +12,7 @@ function CompareDocQuyen() {
     setIsComparing(true);
     setIsLoading(true);
     setComparisonResult("");
+    console.log("propmt compare", prompt);
 
     try {
       const response = await fetch(
@@ -30,7 +31,11 @@ function CompareDocQuyen() {
         }
       );
 
+      console.log("ai res", response);
+
       const data = await response.json();
+      console.log("ai data", data);
+
       const result =
         data.candidates?.[0]?.content?.parts?.[0]?.text ||
         "Không có phản hồi từ AI.";
@@ -48,18 +53,18 @@ function CompareDocQuyen() {
   // Các prompt khác nhau
   const prompts = {
     compare: `Bạn là chuyên gia về chủ nghĩa Mác - Lênin. 
-Hãy so sánh ngắn gọn giữa "Độc Quyền" và "Độc Quyền Nhà Nước" theo các khía cạnh sau:
+Hãy so sánh ngắn gọn nhất có thể và dễ hiểu, không kẻ bảng giữa "Độc Quyền" và "Độc Quyền Nhà Nước" theo các khía cạnh sau:
 1. Định nghĩa
 2. Đặc điểm chính
 3. Nguyên nhân hình thành
 4. Vai trò của Nhà nước
 5. Ảnh hưởng đến nền kinh tế
 Trình bày ngắn gọn, rõ ràng, dễ hiểu.`,
-    examples: `Hãy đưa ra ví dụ thực tế và dễ hiểu về:
+    examples: `Hãy đưa ra ví dụ thực tế, ngắn gọn nhất có thể và dễ hiểu về:
 1. Độc quyền tư nhân
 2. Độc quyền nhà nước
 Mỗi loại khoảng 2 ví dụ, có chú thích ngắn gọn.`,
-    nature: `Phân tích ngắn gọn bản chất của "Chủ nghĩa tư bản độc quyền nhà nước":
+    nature: `Phân tích ngắn gọn nhất có thể và dễ hiểu về bản chất của "Chủ nghĩa tư bản độc quyền nhà nước":
 - Mối quan hệ giữa tư bản độc quyền và Nhà nước
 - Mục tiêu và tác động của hình thái này
 - Vì sao đây là giai đoạn phát triển cao của chủ nghĩa tư bản.`,
@@ -68,8 +73,10 @@ Mỗi loại khoảng 2 ví dụ, có chú thích ngắn gọn.`,
   return (
     <section
       style={{
-        padding: "60px 24px",
+        padding: "40px 24px",
         backgroundColor: "#F5F6EF",
+        maxHeight: "100vh",
+        overflow: "hidden",
       }}
     >
       <div style={{ maxWidth: "900px", margin: "0 auto" }}>
@@ -156,6 +163,8 @@ Mỗi loại khoảng 2 ví dụ, có chú thích ngắn gọn.`,
               borderRadius: "12px",
               padding: "32px",
               marginTop: "32px",
+              maxHeight: "80vh",
+              overflowY: "auto",
             }}
           >
             <div

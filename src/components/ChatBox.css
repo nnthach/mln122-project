@@ -9,12 +9,12 @@
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
-  border: 4px solid #fbbf24;
+  border: 4px solid #355952;
   z-index: 1000;
 }
 
 .chat-header {
-  background: #991b1b;
+  background: #89aca5;
   color: white;
   padding: 16px;
   border-radius: 8px 8px 0 0;
@@ -46,7 +46,7 @@
 }
 
 .message.user .message-content {
-  background: #991b1b;
+  background: #355952;
   color: white;
 }
 
@@ -78,11 +78,11 @@
 }
 
 .chat-input:focus {
-  border-color: #991b1b;
+  border-color: #355952;
 }
 
 .chat-button {
-  background: #991b1b;
+  background: #89ACA5;
   color: white;
   border: none;
   padding: 10px 16px;
@@ -92,7 +92,7 @@
 }
 
 .chat-button:hover {
-  background: #7f1d1d;
+  background: #355952;
 }
 
 .chat-button:disabled {
@@ -108,7 +108,7 @@
 .loading-dot {
   width: 8px;
   height: 8px;
-  background: #991b1b;
+  background: #355952;
   border-radius: 50%;
   animation: bounce 1.4s infinite ease-in-out;
 }

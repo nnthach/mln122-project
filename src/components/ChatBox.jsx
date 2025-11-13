@@ -31,6 +31,15 @@ function ChatBox({ setIsChatOpen }) {
     setInput("");
     setIsLoading(true);
 
+    console.log(`Bạn là chuyên gia về chủ nghĩa Mác - Lênin. 
+                          Chỉ trả lời các câu hỏi liên quan đến "Chương 4: Cạnh tranh và độc quyền trong nền kinh tế thị trường", bao gồm:
+                            4.1. Cạnh tranh ở cấp độ độc quyền trong nền kinh tế thị trường
+                            4.2. Lý luận của V. I. Lênin về đặc điểm kinh tế của độc quyền và độc quyền nhà nước trong nền kinh tế thị trường tư bản chủ nghĩa
+
+                          Nếu người dùng hỏi ngoài phạm vi này, hãy trả lời: "Xin lỗi, vui lòng hỏi đúng trọng tâm của Chương 4 về cạnh tranh và độc quyền, tôi chỉ trả lời trong phạm vi này."
+
+                          Câu hỏi: ${input}`);
+
     try {
       const response = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_KEY}`,
@@ -38,19 +47,40 @@ function ChatBox({ setIsChatOpen }) {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
+            // contents: [
+            //   {
+            //     role: "user",
+            //     parts: [
+            //       {
+            //         text: `Bạn là chuyên gia về chủ nghĩa Mác - Lênin.
+            //               Chỉ trả lời các câu hỏi liên quan đến "Chương 4: Cạnh tranh và độc quyền trong nền kinh tế thị trường", bao gồm:
+            //                 4.1. Cạnh tranh ở cấp độ độc quyền trong nền kinh tế thị trường
+            //                 4.2. Lý luận của V. I. Lênin về đặc điểm kinh tế của độc quyền và độc quyền nhà nước trong nền kinh tế thị trường tư bản chủ nghĩa
+
+            //               Nếu người dùng hỏi ngoài phạm vi này, hãy trả lời: "Xin lỗi, vui lòng hỏi đúng trọng tâm của Chương 4 về cạnh tranh và độc quyền, tôi chỉ trả lời trong phạm vi này."
+
+            //               Câu hỏi: ${input}`,
+            //       },
+            //     ],
+            //   },
+            // ],
             contents: [
               {
                 role: "user",
                 parts: [
                   {
-                    text: `Bạn là chuyên gia về chủ nghĩa Mác - Lênin. 
-                          Chỉ trả lời các câu hỏi liên quan đến "Chương 4: Cạnh tranh và độc quyền trong nền kinh tế thị trường", bao gồm:
-                            4.1. Cạnh tranh ở cấp độ độc quyền trong nền kinh tế thị trường
-                            4.2. Lý luận của V. I. Lênin về đặc điểm kinh tế của độc quyền và độc quyền nhà nước trong nền kinh tế thị trường tư bản chủ nghĩa
+                    text: `
+Bạn là chuyên gia về chủ nghĩa Mác - Lênin.
+Hãy tuân thủ nghiêm ngặt các quy tắc sau:
+1️⃣ Chỉ trả lời các câu hỏi liên quan đến "Chương 4: Cạnh tranh và độc quyền trong nền kinh tế thị trường", bao gồm:
+    - 4.1. Cạnh tranh ở cấp độ độc quyền trong nền kinh tế thị trường
+    - 4.2. Lý luận của V.I. Lênin về đặc điểm kinh tế của độc quyền và độc quyền nhà nước trong nền kinh tế thị trường tư bản chủ nghĩa.
+2️⃣ Nếu người dùng hỏi ngoài phạm vi này, hãy trả lời nguyên văn:
+"Xin lỗi, vui lòng hỏi đúng trọng tâm của Chương 4 về cạnh tranh và độc quyền, tôi chỉ trả lời trong phạm vi này."
 
-                          Nếu người dùng hỏi ngoài phạm vi này, hãy trả lời: "Xin lỗi, vui lòng hỏi đúng trọng tâm của Chương 4 về cạnh tranh và độc quyền, tôi chỉ trả lời trong phạm vi này."
-
-                          Câu hỏi: ${input}`,
+---
+Người dùng hỏi: ${input}
+`,
                   },
                 ],
               },

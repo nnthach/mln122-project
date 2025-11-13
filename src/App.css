@@ -57,8 +57,8 @@
   position: fixed;
   bottom: 24px;
   right: 24px;
-  background: #fbbf24;
-  color: #991b1b;
+  background: #89aca5;
+  color: white;
   border: none;
   padding: 16px;
   border-radius: 50%;
@@ -73,7 +73,7 @@
 }
 
 .chat-toggle:hover {
-  background: #f59e0b;
+  background: #355952;
   transform: scale(1.05);
 }
 
