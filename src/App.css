@@ -1,7 +1,7 @@
 .background-main {
   width: 100%;
-  min-height: calc(100vh - 96px);
-  background-image: url("/public/assets/main.jpg");
+  min-height: calc(100vh);
+  background-image: url("/public/assets/main.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -76,8 +76,6 @@
   background: #f59e0b;
   transform: scale(1.05);
 }
-
-
 
 @media (max-width: 768px) {
   .chatbox {
