@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BookOpen, Users, Star, MessageCircle } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import "./App.css";
 import ChatBox from "./components/ChatBox";
 import DocQuyenComponent from "./components/DocQuyen/DocQuyen";
@@ -7,6 +7,7 @@ import DocQuyenNhaNuocComponent from "./components/DocQuyenNhaNuoc/DocQuyenNhaNu
 import CompareDocQuyen from "./components/CompareDocQuyen/CompareDocQuyen";
 import TacDongDocQuyen from "./components/TacDongDocQuyen/TacDongDocQuyen";
 import QuanHeCanhTranh from "./components/QuanHeCanhTranh/QuanHeCanhTranh";
+import CacHinhThucDocQuyen from "./components/CacHinhThucDocQuyen/CacHinhThucDocQuyen";
 
 function App() {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -28,12 +29,14 @@ function App() {
 
       {/*doc quyen nha nuoc */}
       <DocQuyenNhaNuocComponent />
-      
+
       <TacDongDocQuyen />
 
       <CompareDocQuyen />
 
       <QuanHeCanhTranh />
+
+      <CacHinhThucDocQuyen />
 
       {/* Chat Toggle Button */}
       {!isChatOpen && (

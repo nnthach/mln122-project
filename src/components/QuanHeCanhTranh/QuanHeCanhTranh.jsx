@@ -1,4 +1,9 @@
+import { useState } from "react";
+
 function QuanHeCanhTranh() {
+  const [exampleResults, setExampleResults] = useState({});
+  const [loadingIndex, setLoadingIndex] = useState(null);
+
   const competitionLevels = [
     {
       icon: "🏪",
@@ -9,16 +14,20 @@ function QuanHeCanhTranh() {
       color: "#3b82f6",
       bgLight: "#eff6ff",
       bgBorder: "#bfdbfe",
+      prompt:
+        "Hãy cho tôi 2-3 ví dụ cụ thể ngắn gọn về Cạnh tranh Độc quyền vs Ngoài độc quyền (ví dụ: Amazon vs cửa hàng nhỏ, Uber vs taxi truyền thống)",
     },
     {
       icon: "⚔️",
       number: "02",
       title: "Cạnh tranh Giữa các Tổ chức độc quyền",
       description:
-        "Hình thức cạnh tranh gay gắt nhất giữa các tập đoàn lớn (Samsung vs Apple, các tập đoàn dầu mỏ). Họ cạnh tranh qua thỏa hiệp, liên minh tạm thời, hoặc chiến tranh giá cả để giành thị trường.",
+        "Hình thức cạnh tranh gay gắt nhất giữa các tập đoàn lớn. Họ cạnh tranh qua thỏa hiệp, liên minh tạm thời, hoặc chiến tranh giá cả để giành thị trường.",
       color: "#f59e0b",
       bgLight: "#fffbeb",
       bgBorder: "#fcd34d",
+      prompt:
+        "Hãy cho tôi 2-3 ví dụ cụ thể ngắn gọn về Cạnh tranh Giữa các Tổ chức độc quyền (ví dụ: Samsung vs Apple, Coca-Cola vs Pepsi)",
     },
     {
       icon: "🔄",
@@ -29,8 +38,49 @@ function QuanHeCanhTranh() {
       color: "#ec4899",
       bgLight: "#fdf2f8",
       bgBorder: "#fbcfe8",
+      prompt:
+        "Hãy cho tôi 2-3 ví dụ cụ thể ngắn gọn về Cạnh tranh Nội bộ Tổ chức độc quyền (ví dụ: OPEC, các cartel)",
     },
   ];
+
+  const GEMINI_KEY = process.env.REACT_APP_GEMINI_KEY;
+
+  const handleFetchExample = async (index, prompt) => {
+    setLoadingIndex(index);
+    console.log("prompt", prompt);
+    try {
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_KEY}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [
+              {
+                role: "user",
+                parts: [{ text: prompt }],
+              },
+            ],
+          }),
+        }
+      );
+      console.log("ai res", response);
+
+      const data = await response.json();
+      const result =
+        data.candidates?.[0]?.content?.parts?.[0]?.text ||
+        "Không có phản hồi từ AI.";
+      setExampleResults((prev) => ({ ...prev, [index]: result }));
+    } catch (error) {
+      console.error(error);
+      setExampleResults((prev) => ({
+        ...prev,
+        [index]: "Xin lỗi, đã có lỗi xảy ra khi kết nối với AI.",
+      }));
+    } finally {
+      setLoadingIndex(null);
+    }
+  };
 
   return (
     <section
@@ -160,8 +210,60 @@ function QuanHeCanhTranh() {
                   backgroundColor: level.color,
                   borderRadius: "2px",
                   marginTop: "16px",
+                  marginBottom: "16px",
                 }}
               />
+
+              {/* Button */}
+              <button
+                onClick={() => handleFetchExample(index, level.prompt)}
+                disabled={loadingIndex === index}
+                style={{
+                  padding: "10px 16px",
+                  fontSize: "14px",
+                  fontWeight: "600",
+                  color: "#ffffff",
+                  backgroundColor: level.color,
+                  border: "none",
+                  borderRadius: "8px",
+                  cursor: loadingIndex === index ? "not-allowed" : "pointer",
+                  transition: "all 0.2s ease",
+                  opacity: loadingIndex === index ? 0.7 : 1,
+                }}
+                onMouseEnter={(e) => {
+                  if (loadingIndex !== index) {
+                    e.currentTarget.style.opacity = "0.9";
+                    e.currentTarget.style.transform = "scale(1.02)";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.opacity = "1";
+                  e.currentTarget.style.transform = "scale(1)";
+                }}
+              >
+                {loadingIndex === index ? "⏳ Đang tải..." : "📖 Ví dụ"}
+              </button>
+
+              {/* Example Result */}
+              {exampleResults[index] && (
+                <div
+                  style={{
+                    marginTop: "16px",
+                    padding: "12px",
+                    backgroundColor: "#ffffff",
+                    border: `1px solid ${level.bgBorder}`,
+                    borderLeft: `4px solid ${level.color}`,
+                    borderRadius: "8px",
+                    fontSize: "13px",
+                    lineHeight: "1.6",
+                    color: "#475569",
+                    whiteSpace: "pre-wrap",
+                    wordBreak: "break-word",
+                  }}
+                >
+                  {exampleResults[index]}
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -173,7 +275,7 @@ function QuanHeCanhTranh() {
             padding: "20px",
             backgroundColor: "#f3f4f6",
             borderRadius: "12px",
-            borderLeft: "4px solid #dc2626",
+            borderLeft: "4px solid green",
           }}
         >
           <h3
